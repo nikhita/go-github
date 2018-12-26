@@ -217,8 +217,9 @@ func (s *RepositoriesService) ListByOrg(ctx context.Context, org string, opt *Re
 	}
 
 	// TODO: remove custom Accept headers when APIs fully launch.
-	acceptHeaders := []string{mediaTypeTopicsPreview}
-	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
+	// This is due to a GitHub bug: https://github.com/google/go-github/issues/1037
+	// acceptHeaders := []string{mediaTypeTopicsPreview}
+	// req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
 
 	var repos []*Repository
 	resp, err := s.client.Do(ctx, req, &repos)
